@@ -2,7 +2,6 @@
 uvicorn
 requests
 beautifulsoup4
-scikit-learn
 google-genai
 groq
 python-dotenv
