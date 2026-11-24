@@ -343,11 +343,17 @@ def main() -> None:
                     }
 
                 st.session_state.messages.append(assistant_msg)
+            except requests.exceptions.ConnectionError:
+                st.session_state.messages.append({
+                    "id": str(uuid4()),
+                    "role": "assistant",
+                    "content": f"⚠️ **Cannot Connect to Backend:** Unable to reach `{backend_url}`. Please verify that FastAPI is running on port 8000 (`uvicorn app.main:app --port 8000`).",
+                })
             except Exception as err:
                 st.session_state.messages.append({
                     "id": str(uuid4()),
                     "role": "assistant",
-                    "content": f"⚠️ **Connection Error:** {err}\n\nPlease ensure your FastAPI backend is running at `{backend_url}`.",
+                    "content": f"⚠️ **Request Notice:** {err}",
                 })
 
         st.rerun()

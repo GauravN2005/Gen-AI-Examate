@@ -49,7 +49,7 @@ def _normalised_cache_key(
     model = (
         os.getenv("GROQ_MODEL", "openai/gpt-oss-20b")
         if provider == "groq"
-        else os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+        else os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite")
     )
     text = " ".join(question.strip().split()).casefold()
     raw = "|".join(
@@ -71,7 +71,7 @@ def _active_provider_model() -> tuple[str, str]:
     model = (
         os.getenv("GROQ_MODEL", "openai/gpt-oss-20b")
         if provider == "groq"
-        else os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+        else os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite")
     )
     return provider, model
 
@@ -345,7 +345,7 @@ def ask(request: AskRequest) -> AskResponse:
             model=(
                 os.getenv("GROQ_MODEL", "openai/gpt-oss-20b")
                 if os.getenv("LLM_PROVIDER", "gemini").strip().casefold() == "groq"
-                else os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+                else os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite")
             ),
             usage=None,
         )
@@ -359,7 +359,7 @@ def ask(request: AskRequest) -> AskResponse:
             model=usage.get("model") if usage else (
                 os.getenv("GROQ_MODEL", "openai/gpt-oss-20b")
                 if os.getenv("LLM_PROVIDER", "gemini").strip().casefold() == "groq"
-                else os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+                else os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite")
             ),
             usage=usage,
         )
